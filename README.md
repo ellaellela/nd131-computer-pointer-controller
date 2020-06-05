@@ -8,6 +8,14 @@ This is a project where we have built an application using openVINO to control t
 
 Input: Camera, video or image can serve as a input to the application.
 
+The gaze estimation model requires three inputs:
+* the head pose
+* the left eye image
+* the right eye image.
+
+The flow of data looks like this:
+![flow_of_data_chart](./images/pipeline.png)
+
 ## Project Set Up and Installation
 To run this applciation lcoally, one needs to have openVINO toolkit installed.
 
