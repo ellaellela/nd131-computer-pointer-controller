@@ -11,47 +11,50 @@ Input: Camera, video or image can serve as a input to the application.
 ## Project Set Up and Installation
 To run this applciation lcoally, one needs to have openVINO toolkit installed.
 
-First enable the virtual environment: source /opt/intel/openvino/bin/setupvars.sh
+First enable the virtual environment: `source /opt/intel/openvino/bin/setupvars.sh`
 Secondly, activate the python virtual environment. To install it, run the following commands in your terminal:
 
+```
 pip3 install virtualenv
 virtualenv [name of the virtual environmant. For example, my_env]
 source [my_env]/bin/activate
 pip3 install -r ../requirements.txt
+```
 
-The requirements.txt file is located in the same directory as this README.md.
+The requirements.txt file is located in the same directory as this `README.md`.
 After all the testing has been done, simply deactivate the virtual environment by typing: deactivate
 
 Next step is to download the pretrained models. This can be done using the model downloader from openVINO:
 
-python3 /opt/intel/openvino/deployment_tools/tools/model_downloader/downloader.py --name face-detection-adas-binary-0001 --output outputs/
-python3 /opt/intel/openvino/deployment_tools/tools/model_downloader/downloader.py --name head-pose-estimation-adas-0001 --output outputs/
-python3 /opt/intel/openvino/deployment_tools/tools/model_downloader/downloader.py --name landmarks-regression-retail-0009 --output outputs/
-python3 /opt/intel/openvino/deployment_tools/tools/model_downloader/downloader.py --name gaze-estimation-adas-0002 --output outputs/
+`python3 /opt/intel/openvino/deployment_tools/tools/model_downloader/downloader.py --name face-detection-adas-binary-0001 --output outputs/`
+`python3 /opt/intel/openvino/deployment_tools/tools/model_downloader/downloader.py --name head-pose-estimation-adas-0001 --output outputs/`
+`python3 /opt/intel/openvino/deployment_tools/tools/model_downloader/downloader.py --name landmarks-regression-retail-0009 --output outputs/`
+`python3 /opt/intel/openvino/deployment_tools/tools/model_downloader/downloader.py --name gaze-estimation-adas-0002 --output outputs/`
 
 
 
 ## Demo
 To run a demo, navigate to the src directory and run the following command:
+```
 python3 main.py -fd_m ../../intel/face-detection-adas-binary-0001/INT1/face-detection-adas-binary-0001 \
                 -hp_m ../../intel/head-pose-estimation-adas-0001/FP32/head-pose-estimation-adas-0001 \
                 -fl_m ../../intel/landmarks-regression-retail-0009/FP32/landmarks-regression-retail-0009 \
                 -ge_m ../../intel/gaze-estimation-adas-0002/INT8/gaze-estimation-adas-0002 \
                 --cpu_extension /opt/intel/openvino/deployment_tools/inference_engine/lib/intel64/libcpu_extension_sse4.so \
                 -i ../bin/demo.mp4
-
+```
 ## Documentation
-The main.py takes the following as arguments:
+The `main.py` takes the following as arguments:
 
--fd_m or --facedetecionmodel: Path to face detection model's xml file with a trained model
--hp_m or --headposeestimationmodel: Path to head pose estimation model's xml file with a trained model
--fl_m or --faciallandmarksdetectionmodel: Path to facial landmarks detection model's xml file with a trained model
--ge_m or --gazeestimationnmodel: Path to gaze estimation model's xml file with a trained model
--i or --input: Path to image (IMG) or video (VID) or camera (CAM)
--l or --cpu_extension: MKLDNN (CPU)-targeted custom layers; absolute path to a shared library with the kernels implementation
--d or --device: Specify the target device to infer on: CPU, GPU, FPGA or MYRIAD is acceptable (CPU by default)
--pt or --prob_threshold: Probability threshold for detection's filtering (0.5 by default)
--vis or --visualise: Visualise outputs: head (HEAD), eyes (EYES), gaze (GAZE) (no visualisation by default)
+*-fd_m or --facedetecionmodel: Path to face detection model's xml file with a trained model
+*-hp_m or --headposeestimationmodel: Path to head pose estimation model's xml file with a trained model
+*-fl_m or --faciallandmarksdetectionmodel: Path to facial landmarks detection model's xml file with a trained model
+*-ge_m or --gazeestimationnmodel: Path to gaze estimation model's xml file with a trained model
+*-i or --input: Path to image (IMG) or video (VID) or camera (CAM)
+*-l or --cpu_extension: MKLDNN (CPU)-targeted custom layers; absolute path to a shared library with the kernels implementation
+*-d or --device: Specify the target device to infer on: CPU, GPU, FPGA or MYRIAD is acceptable (CPU by default)
+*-pt or --prob_threshold: Probability threshold for detection's filtering (0.5 by default)
+*-vis or --visualise: Visualise outputs: head (HEAD), eyes (EYES), gaze (GAZE) (no visualisation by default)
 
 ## Benchmarks
 In the following, we have excluded any form of preprocessing and postprocessing and only measured the loading time and the inference time.
