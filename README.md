@@ -149,9 +149,15 @@ This is where you can provide information about the stand out suggestions that y
 
 ### Async Inference
 If you have used Async Inference in your code, benchmark the results and explain its effects on power and performance of your project.
+
 No async inference has been attempted. (Note: after we have run the first model, the following two can be run in parallel since there is no inter-dependance between their outputs.)
 
 ### Edge Cases
 1) If there is no face detected in the frame, we will just skip the frame and continue with the next one.
 
 2) If there is more than one face detected in the frame, we will take the one with the highest probability. A side-effect of this is that we can have alternating face with the highest probability and that would imply alternating the results in the subsequent steps of our application. (Note: it might be possible to use a tracker to track the face which we have chosen among other faces present in the frame, but this seems to be out of the scope of this project and nanodegree.)
+
+## Further TODO
+- [ ] use Async Inference and benchmark the results
+- [ ] use VTune Amplifier to find hotspots in Inference Engine pipeline
+- [ ] use `get_perf_counts` API to check the time it takes for each layer of the model
