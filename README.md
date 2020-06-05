@@ -1,10 +1,10 @@
 # Computer Pointer Controller
 This is a project where we have built an application using openVINO to control the mouse pointer with the gaze. In total, four pretrained models have been used to acheive this:
 
-1) face detection model (face-detection-adas-binary-0001)
-2) head-pose estimation model (head-pose-estimation-adas-0001)
-3) facial landmarks detection model (landmarks-regression-retail-0009)
-4) gaze estimation model (gaze-estimation-adas-0002)
+1) face detection model ([face-detection-adas-binary-0001](https://docs.openvinotoolkit.org/2019_R1/_face_detection_adas_binary_0001_description_face_detection_adas_binary_0001.html))
+2) head-pose estimation model ([head-pose-estimation-adas-0001](https://docs.openvinotoolkit.org/2019_R1/_head_pose_estimation_adas_0001_description_head_pose_estimation_adas_0001.html))
+3) facial landmarks detection model ([landmarks-regression-retail-0009](https://docs.openvinotoolkit.org/2018_R5/_docs_Retail_object_attributes_landmarks_regression_0009_onnx_desc_landmarks_regression_retail_0009.html))
+4) gaze estimation model ([gaze-estimation-adas-0002](https://docs.openvinotoolkit.org/2019_R1/_gaze_estimation_adas_0002_description_gaze_estimation_adas_0002.html))
 
 Input: Camera, video or image can serve as a input to the application.
 
@@ -61,7 +61,7 @@ The `main.py` takes the following as arguments:
 In the following, we have excluded any form of preprocessing and postprocessing and only measured the loading time and the inference time.
 For the inference time, we measured inference time for each frame and saved those in the corresponding textual files in the folder outputs. Using this information, we calculated the statistics.
 
-The results were obtained on Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz (further specifications can be found here: https://ark.intel.com/content/www/us/en/ark/products/97456/intel-core-i5-7300hq-processor-6m-cache-up-to-3-50-ghz.html).
+The results were obtained on Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz (further specifications can be found [here](https://ark.intel.com/content/www/us/en/ark/products/97456/intel-core-i5-7300hq-processor-6m-cache-up-to-3-50-ghz.html)).
 
 ### Face detecion model (face-detection-adas-binary-0001)
 This model has only one precision: INT1.
@@ -124,7 +124,9 @@ standard deviation  | 0.000193803304417 | 0.000170847022527 | 0.000482894350576
 As expected, by decreasing the precision, we will decrease the inference time. This is because we are performing faster calculations and more data can be stored in the faster memories.
 
 Visual inspection showed no loss of performance. However, this may be due to the simplicity of the application.
-Namely, face detection model is at the start of the pipeline and it is only available in one precision, so the next two models (facial landmarks detection and head-pose estimation) have the same start for both available precisions (FP16 and FP32). Since eyes are most likely one of the features by which our face detection model detects faces, the change of accuracy did not hamper the detection of eyes. There was no sign of worsened performance when using the lower precision for the head-pose estimation model.
+Namely, face detection model is at the start of the pipeline and it is only available in one precision, so the next two models (facial landmarks detection and head-pose estimation) have the same start for both available precisions (FP16 and FP32).
+
+Since eyes are most likely one of the features by which our face detection model detects faces, the change of accuracy did not hamper the detection of eyes. There was no sign of worsened performance when using the lower precision for the head-pose estimation model.
 
 In the end, the gaze estimation model takes detected eyes and head-pose angles to estimate the gaze vector, and it seems again that the performance was not hampered by using lower precision weights.
 
